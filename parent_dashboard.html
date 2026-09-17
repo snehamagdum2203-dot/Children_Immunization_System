@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block title %}{{ child['name'] }}'s Vaccines{% endblock %}
+{% block content %}
+<div class="wrap" style="max-width:780px;">
+
+  <!-- Child info -->
+  <div class="card" style="margin-bottom:1.25rem;border-top:4px solid #3182ce;">
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+      <div style="font-size:2.5rem;">👶</div>
+      <div>
+        <h2 style="font-size:1.2rem;font-weight:700;color:#2d3748;">{{ child['name'] }}</h2>
+        <div style="font-size:.85rem;color:#718096;margin-top:.25rem;">
+          📅 DOB: <strong>{{ child['dob'] }}</strong> &nbsp;|&nbsp;
+          👨‍👩‍👧 {{ child['parent_name'] }} &nbsp;|&nbsp;
+          📞 {{ child['parent_mobile'] }}
+        </div>
+        {% if child['address'] %}
+        <div style="font-size:.82rem;color:#a0aec0;margin-top:.2rem;">🏠 {{ child['address'] }}</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Vaccine Card - like a real card -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;">
+
+    <!-- Vaccines Given -->
+    <div class="card">
+      <div class="card-title">✅ Vaccines Received ({{ given_vaccines|length }})</div>
+      {% if given_vaccines %}
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Vaccine</th><th>Date Given</th></tr></thead>
+          <tbody>
+            {% for v in given_vaccines %}
+            <tr>
+              <td><span class="badge badge-green">{{ v['vaccine_name'] }}</span></td>
+              <td style="color:#718096;font-size:.82rem;">{{ v['vacc_date'] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="empty"><big>💉</big><p>No vaccines recorded yet.</p></div>
+      {% endif %}
+    </div>
+
+    <!-- Pending / Upcoming -->
+    <div class="card">
+      <div class="card-title">⏳ Upcoming Vaccines ({{ pending_vaccines|length }})</div>
+      {% if pending_vaccines %}
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Vaccine</th><th>Due Date</th><th>Status</th></tr></thead>
+          <tbody>
+            {% for v in pending_vaccines %}
+            <tr>
+              <td><span class="badge badge-blue">{{ v['vaccine_name'] }}</span></td>
+              <td style="color:#718096;font-size:.82rem;">{{ v['due_date'] }}</td>
+              <td>
+                {% if v['due_date'] < today %}
+                  <span class="badge badge-red">Missed</span>
+                {% elif v['due_date'] == today %}
+                  <span class="badge badge-green">Due Today</span>
+                {% else %}
+                  <span class="badge badge-gray">Upcoming</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="empty"><big>🎉</big><p>All vaccines completed!</p></div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Vaccine Information - AEFI + Care -->
+  <div class="card">
+    <div class="card-title">ℹ️ Vaccine Information (AEFI & Care Guide)</div>
+    {% if vaccines_info %}
+      {% for v in vaccines_info %}
+      <details style="border:1px solid #e2e8f0;border-radius:8px;padding:.75rem 1rem;margin-bottom:.5rem;">
+        <summary style="cursor:pointer;font-weight:600;font-size:.9rem;display:flex;justify-content:space-between;align-items:center;list-style:none;">
+          <span>{{ v['name'] }}</span>
+          <span class="badge {% if v['availability'] == 'Government' %}badge-green{% else %}badge-blue{% endif %}">
+            {{ v['availability'] }}
+          </span>
+        </summary>
+        <div style="margin-top:.75rem;font-size:.85rem;color:#4a5568;line-height:1.8;">
+          {% if v.get('purpose') %}
+          <div style="margin-bottom:.4rem;">
+            🎯 <strong>Purpose:</strong> {{ v['purpose'] }}
+          </div>
+          {% endif %}
+          {% if v.get('side_effects') or v.get('aefi') %}
+          <div style="margin-bottom:.4rem;background:#fff5f5;border-radius:6px;padding:.4rem .7rem;">
+            ⚠️ <strong>AEFI / Side Effects:</strong> {{ v.get('aefi') or v.get('side_effects') }}
+          </div>
+          {% endif %}
+          {% if v.get('care') %}
+          <div style="background:#f0fff4;border-radius:6px;padding:.4rem .7rem;">
+            💊 <strong>Care after vaccination:</strong> {{ v['care'] }}
+          </div>
+          {% endif %}
+        </div>
+      </details>
+      {% endfor %}
+    {% else %}
+      <div class="empty"><p>Vaccine information not available.</p></div>
+    {% endif %}
+  </div>
+
+  <div style="margin-top:1rem;"><a href="/logout" class="btn btn-gray">← Logout</a></div>
+</div>
+{% endblock %}

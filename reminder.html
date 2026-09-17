@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Reminders{% endblock %}
+{% block content %}
+<div class="wrap" style="max-width:600px;">
+  <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:1.25rem;">📲 WhatsApp Reminders</h2>
+
+  <div style="display:grid;gap:1rem;">
+    <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+      <div>
+        <div style="font-weight:700;margin-bottom:.2rem;">📅 Due in 3 Days</div>
+        <div style="font-size:.85rem;color:#718096;">Send reminder to parents whose child's vaccine is due in 3 days</div>
+      </div>
+      <a href="/reminder_3days_whatsapp" class="btn btn-blue">Send Now</a>
+    </div>
+    <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+      <div>
+        <div style="font-weight:700;margin-bottom:.2rem;">🟢 Due Today</div>
+        <div style="font-size:.85rem;color:#718096;">Send reminder for vaccines due today</div>
+      </div>
+      <a href="/reminder_today_whatsapp" class="btn btn-green">Send Now</a>
+    </div>
+    <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+      <div>
+        <div style="font-weight:700;margin-bottom:.2rem;">🔴 Missed Vaccines</div>
+        <div style="font-size:.85rem;color:#718096;">Alert parents about overdue / missed vaccinations</div>
+      </div>
+      <a href="/reminder_missed_whatsapp" class="btn btn-red">Send Alert</a>
+    </div>
+  </div>
+  <div style="margin-top:1rem;"><a href="/staff_dashboard" class="btn btn-gray">← Back</a></div>
+</div>
+{% endblock %}

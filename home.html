@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}Children Immunization{% endblock %}
+{% block extra_css %}
+<style>
+body { background: linear-gradient(135deg, #ebf8ff 0%, #f0fff4 100%); }
+.hero {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.25rem;
+}
+.hero-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+.hero h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #2d3748;
+  line-height: 1.2;
+  margin-bottom: .6rem;
+}
+.hero h1 span { color: #2b6cb0; }
+.hero p {
+  font-size: 1rem;
+  color: #718096;
+  max-width: 440px;
+  margin: 0 auto 2.5rem;
+}
+.btn-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  max-width: 500px;
+}
+.portal-btn {
+  background: #fff;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  text-decoration: none;
+  color: #2d3748;
+  transition: all .2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  font-weight: 600;
+  font-size: .95rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+.portal-btn:hover {
+  border-color: var(--c);
+  color: var(--c);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.1);
+}
+.portal-btn .ico { font-size: 2rem; }
+.portal-btn .sub { font-size: .78rem; color: #a0aec0; font-weight: 400; }
+.portal-btn:hover .sub { color: var(--c); opacity: .7; }
+@media(max-width:500px){ .btn-group { grid-template-columns: 1fr; } }
+</style>
+{% endblock %}
+{% block content %}
+<div class="hero">
+  <div class="hero-icon">👶</div>
+  <h1>Welcome to<br/><span>Children Immunization</span></h1>
+  <p>Track, manage & remind vaccination schedules for every child at your sub-center.</p>
+
+  <div class="btn-group">
+    <a href="/staff_signup" class="portal-btn" style="--c:#38a169;">
+      <span class="ico">✍️</span>
+      Staff Sign Up
+      <span class="sub">New staff registration</span>
+    </a>
+    <a href="/staff_login" class="portal-btn" style="--c:#3182ce;">
+      <span class="ico">👩‍⚕️</span>
+      Staff Login
+      <span class="sub">Sub-center health worker</span>
+    </a>
+    <a href="/parent_login" class="portal-btn" style="--c:#d69e2e;">
+      <span class="ico">👨‍👩‍👧</span>
+      Parents Login
+      <span class="sub">Check child's vaccines</span>
+    </a>
+    <a href="/hospital_login" class="portal-btn" style="--c:#e53e3e;">
+      <span class="ico">🏥</span>
+      Hospital Login
+      <span class="sub">PHC admin dashboard</span>
+    </a>
+  </div>
+</div>
+{% endblock %}

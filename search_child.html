@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}Search Child{% endblock %}
+{% block content %}
+<div class="wrap">
+  <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:1.25rem;">🔍 Search Child Records</h2>
+  <div class="card" style="margin-bottom:1.25rem;">
+    <form method="POST" action="/search_child" style="display:flex;gap:.75rem;align-items:flex-end;">
+      <div class="form-group" style="flex:1;margin:0;">
+        <label>Search by Name / Child ID / Mobile</label>
+        <input type="text" name="keyword" value="{{ search_key }}" placeholder="Type to search…" autofocus/>
+      </div>
+      <button type="submit" class="btn btn-blue" style="height:40px;">Search</button>
+    </form>
+  </div>
+
+  {% if search_key %}
+    {% if results %}
+      {% for r in results %}
+      <div class="card" style="margin-bottom:1.25rem;">
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid #e2e8f0;">
+          <div style="font-size:2rem;">👶</div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:1rem;color:#2d3748;">{{ r.child.name }}
+              <span class="badge badge-gray" style="margin-left:.5rem;">{{ r.child.child_id }}</span>
+            </div>
+            <div style="font-size:.82rem;color:#718096;margin-top:.2rem;">
+              👨‍👩‍👧 {{ r.child.parent_name }} &nbsp;|&nbsp;
+              📞 {{ r.child.parent_mobile }} &nbsp;|&nbsp;
+              📅 DOB: {{ r.child.dob }} &nbsp;|&nbsp;
+              📍 {{ r.child.subcenter or '—' }}
+            </div>
+            {% if r.child.address %}
+            <div style="font-size:.8rem;color:#a0aec0;margin-top:.15rem;">🏠 {{ r.child.address }}</div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div>
+            <div style="font-size:.8rem;font-weight:700;color:#276749;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem;">✅ Vaccines Given ({{ r.vaccinations|length }})</div>
+            {% if r.vaccinations %}
+              <div class="tbl-wrap">
+                <table>
+                  <thead><tr><th>Vaccine</th><th>Date</th></tr></thead>
+                  <tbody>
+                    {% for v in r.vaccinations %}
+                    <tr>
+                      <td><span class="badge badge-green">{{ v.vaccine_name }}</span></td>
+                      <td style="color:#718096;font-size:.82rem;">{{ v.vacc_date }}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <div style="color:#a0aec0;font-size:.85rem;padding:.5rem 0;">No vaccines recorded yet.</div>
+            {% endif %}
+          </div>
+
+          <div>
+            <div style="font-size:.8rem;font-weight:700;color:#2c5282;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem;">⏳ Upcoming Vaccines ({{ r.upcoming|length }})</div>
+            {% if r.upcoming %}
+              <div class="tbl-wrap">
+                <table>
+                  <thead><tr><th>Vaccine</th><th>Due Date</th></tr></thead>
+                  <tbody>
+                    {% for u in r.upcoming %}
+                    <tr>
+                      <td><span class="badge badge-blue">{{ u.vaccine_name }}</span></td>
+                      <td style="color:#718096;font-size:.82rem;">{{ u.due_date }}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <div style="color:#a0aec0;font-size:.85rem;padding:.5rem 0;">No upcoming vaccines.</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+    <div class="card">
+      <div class="empty"><big>🔎</big><p style="margin-top:.5rem;">No results found for "{{ search_key }}"</p></div>
+    </div>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

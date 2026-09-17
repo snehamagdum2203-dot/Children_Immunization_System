@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Reminder Sent{% endblock %}
+{% block content %}
+<div class="wrap" style="max-width:700px;">
+  <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:1.25rem;">📲 Reminder Result — {{ data|length }} parent(s) notified</h2>
+  <div class="card">
+    {% if data %}
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Child Name</th><th>Vaccine</th><th>Parent Mobile</th></tr>
+        </thead>
+        <tbody>
+          {% for row in data %}
+          <tr>
+            <td>{{ row['name'] }}</td>
+            <td><span class="badge badge-blue">{{ row['vaccine_name'] }}</span></td>
+            <td style="color:#718096;">{{ row['parent_mobile'] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="empty">
+      <big>📭</big>
+      <p style="margin-top:.5rem;">No records matched for this reminder.</p>
+    </div>
+    {% endif %}
+  </div>
+  <div style="margin-top:1rem;display:flex;gap:.75rem;">
+    <a href="/reminder" class="btn btn-gray">← Back to Reminders</a>
+    <a href="/staff_dashboard" class="btn btn-blue">Dashboard</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Saved Successfully{% endblock %}
+{% block content %}
+<div class="wrap-sm" style="text-align:center;padding-top:4rem;">
+  <div class="card">
+    <div style="font-size:3.5rem;margin-bottom:1rem;">✅</div>
+    <h2 style="font-size:1.3rem;font-weight:700;color:#276749;margin-bottom:.5rem;">Saved Successfully!</h2>
+    <p style="color:#718096;font-size:.9rem;margin-bottom:1.5rem;">The record has been saved in the system.</p>
+    <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;">
+      <a href="/staff_dashboard" class="btn btn-blue">Back to Dashboard</a>
+      <a href="/child_register"  class="btn btn-gray">Register Another Child</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

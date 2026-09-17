@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Register Child{% endblock %}
+{% block content %}
+<div class="wrap" style="max-width:600px;">
+  <div class="card">
+    <div class="card-title">👶 New Child Registration</div>
+    <form method="POST" action="/child_register">
+      <div class="form-group">
+        <label>Child ID</label>
+        <input type="text" name="child_id" placeholder="e.g. CH2024001" required/>
+      </div>
+      <div class="form-group">
+        <label>Child Name</label>
+        <input type="text" name="name" placeholder="Child's full name" required/>
+      </div>
+      <div class="form-group">
+        <label>Date of Birth</label>
+        <input type="date" name="dob" required/>
+      </div>
+      <hr/>
+      <div class="form-group">
+        <label>Parent / Guardian Name</label>
+        <input type="text" name="parent_name" placeholder="Father or Mother name" required/>
+      </div>
+      <div class="form-group">
+        <label>Parent Mobile Number</label>
+        <input type="text" name="parent_mobile" placeholder="WhatsApp number (must be joined to Twilio sandbox)" maxlength="10" required/>
+      </div>
+      <div style="background:#fffff0;border:1px solid #f6e05e;border-radius:8px;padding:.75rem 1rem;font-size:.82rem;color:#744210;margin-bottom:1rem;">
+        ⚠️ Parent's mobile number must be <strong>joined to the Twilio WhatsApp sandbox</strong> to receive reminders.
+      </div>
+      <div class="form-group">
+        <label>Address</label>
+        <textarea name="address" rows="2" placeholder="Village / Ward / Street"></textarea>
+      </div>
+      <div style="display:flex;gap:.75rem;">
+        <button type="submit" class="btn btn-green">Save Registration →</button>
+        <a href="/staff_dashboard" class="btn btn-gray">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

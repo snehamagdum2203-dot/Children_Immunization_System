@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Staff Sign Up{% endblock %}
+{% block content %}
+<div class="wrap-sm">
+  <div class="card">
+    <div class="card-title">✍️ Staff Sign Up</div>
+    <form method="POST" action="/staff_signup">
+      <div class="form-group">
+        <label>PHC Name</label>
+        <input type="text" name="phc_name" placeholder="e.g. Khed PHC" required/>
+      </div>
+      <div class="form-group">
+        <label>Sub-Center Name</label>
+        <input type="text" name="subcenter" placeholder="e.g. Vadgaon Sub-Center" required/>
+      </div>
+      <div class="form-group">
+        <label>Staff Name</label>
+        <input type="text" name="name" placeholder="Your full name" required/>
+      </div>
+      <div class="form-group">
+        <label>Mobile Number</label>
+        <input type="text" name="mobile" placeholder="WhatsApp number (10 digits)" maxlength="10" required/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="This password will be shared with all PHC staff" required/>
+      </div>
+      <div style="background:#ebf8ff;border:1px solid #bee3f8;border-radius:8px;padding:.75rem 1rem;font-size:.82rem;color:#2c5282;margin-bottom:1rem;">
+        ℹ️ The password you set here will be used by <strong>all staff of this PHC</strong> to login.
+      </div>
+      <button type="submit" class="btn btn-green btn-full">Save &amp; Register →</button>
+    </form>
+    <hr/>
+    <p style="text-align:center;font-size:.85rem;color:#718096;">Already registered? <a href="/staff_login" style="color:#3182ce;font-weight:600;">Staff Login</a></p>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>{% block title %}Children Immunization{% endblock %}</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f0f4f8;
+  color: #1a202c;
+  min-height: 100vh;
+}
+
+/* NAV */
+nav {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0 2rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+.nav-brand {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2b6cb0;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.nav-brand span { color: #e53e3e; }
+.nav-links { display: flex; gap: .25rem; }
+.nav-links a {
+  color: #4a5568;
+  text-decoration: none;
+  padding: .4rem .85rem;
+  border-radius: 6px;
+  font-size: .875rem;
+  font-weight: 500;
+  transition: background .15s, color .15s;
+}
+.nav-links a:hover { background: #ebf4ff; color: #2b6cb0; }
+.nav-links a.logout { color: #e53e3e; }
+.nav-links a.logout:hover { background: #fff5f5; }
+
+/* WRAPPER */
+.wrap { max-width: 1080px; margin: 2rem auto; padding: 0 1.25rem; }
+.wrap-sm { max-width: 460px; margin: 3rem auto; padding: 0 1.25rem; }
+
+/* CARD */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  padding-bottom: .75rem;
+  border-bottom: 2px solid #ebf8ff;
+}
+
+/* FORM */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { margin-bottom: 1rem; }
+label { display: block; font-size: .8rem; font-weight: 600; color: #718096; margin-bottom: .35rem; letter-spacing: .03em; text-transform: uppercase; }
+input, select, textarea {
+  width: 100%;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  padding: .6rem .85rem;
+  font-size: .9rem;
+  font-family: 'Inter', sans-serif;
+  color: #2d3748;
+  background: #fff;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66,153,225,.15);
+}
+input::placeholder { color: #a0aec0; }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .6rem 1.4rem;
+  border-radius: 8px;
+  font-size: .9rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: all .18s;
+}
+.btn-blue   { background: #3182ce; color: #fff; }
+.btn-blue:hover { background: #2c5282; }
+.btn-green  { background: #38a169; color: #fff; }
+.btn-green:hover { background: #276749; }
+.btn-red    { background: #e53e3e; color: #fff; }
+.btn-red:hover { background: #9b2c2c; }
+.btn-gray   { background: #edf2f7; color: #4a5568; border: 1px solid #e2e8f0; }
+.btn-gray:hover { background: #e2e8f0; }
+.btn-full   { width: 100%; justify-content: center; }
+.btn-sm     { padding: .35rem .85rem; font-size: .82rem; }
+
+/* BADGE */
+.badge {
+  display: inline-block;
+  padding: .2rem .6rem;
+  border-radius: 99px;
+  font-size: .75rem;
+  font-weight: 600;
+}
+.badge-green { background: #c6f6d5; color: #276749; }
+.badge-blue  { background: #bee3f8; color: #2c5282; }
+.badge-red   { background: #fed7d7; color: #9b2c2c; }
+.badge-gray  { background: #edf2f7; color: #4a5568; }
+
+/* ALERT */
+.alert {
+  padding: .75rem 1rem;
+  border-radius: 8px;
+  font-size: .875rem;
+  margin-bottom: 1rem;
+}
+.alert-success { background: #c6f6d5; color: #276749; }
+.alert-error   { background: #fed7d7; color: #9b2c2c; }
+
+/* TABLE */
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+thead th {
+  background: #f7fafc;
+  color: #718096;
+  font-size: .78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding: .65rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+tbody tr { border-bottom: 1px solid #f0f4f8; }
+tbody tr:hover { background: #f7fafc; }
+tbody td { padding: .7rem 1rem; }
+
+/* STATS */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+.stat {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  border-left: 4px solid var(--c, #3182ce);
+}
+.stat-num { font-size: 2rem; font-weight: 700; color: var(--c, #3182ce); }
+.stat-lbl { font-size: .8rem; color: #718096; margin-top: .15rem; }
+
+/* EMPTY */
+.empty { text-align: center; padding: 2.5rem 1rem; color: #a0aec0; }
+.empty big { font-size: 2rem; }
+
+/* DIVIDER */
+hr { border: none; border-top: 1px solid #e2e8f0; margin: 1.25rem 0; }
+
+@media(max-width:600px){
+  .form-row { grid-template-columns: 1fr; }
+  nav { padding: 0 1rem; }
+}
+</style>
+{% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand">🏥 <span>Children</span> Immunization</a>
+  <div class="nav-links">
+    {% if session.get('staff_id') %}
+      <a href="/staff_dashboard">Dashboard</a>
+      <a href="/child_register">Register Child</a>
+      <a href="/update_vaccine">Vaccine</a>
+      <a href="/search_child">Search</a>
+      <a href="/reminder">Reminders</a>
+      <a href="/report">Report</a>
+      <a href="/logout" class="logout">Logout</a>
+    {% elif session.get('child_id') %}
+      <a href="/parent_dashboard">My Child</a>
+      <a href="/logout" class="logout">Logout</a>
+    {% elif session.get('phc_name') %}
+      <a href="/phc_dashboard">PHC Dashboard</a>
+      <a href="/logout" class="logout">Logout</a>
+    {% else %}
+      <a href="/staff_signup">Staff Signup</a>
+      <a href="/staff_login">Staff Login</a>
+      <a href="/parent_login">Parent Login</a>
+      <a href="/hospital_login">Hospital Login</a>
+    {% endif %}
+  </div>
+</nav>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div style="max-width:1080px;margin:.75rem auto;padding:0 1.25rem;">
+      {% for cat, msg in messages %}
+        <div class="alert alert-{{ 'success' if cat == 'success' else 'error' }}">{{ msg }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

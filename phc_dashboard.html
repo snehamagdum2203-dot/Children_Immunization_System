@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}PHC Dashboard{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div style="margin-bottom:1.5rem;">
+    <h2 style="font-size:1.4rem;font-weight:700;">🏥 {{ phc_name }} — PHC Dashboard</h2>
+  </div>
+
+  <div class="stats" style="margin-bottom:1.5rem;">
+    <div class="stat" style="--c:#3182ce;">
+      <div class="stat-num">{{ total_children }}</div>
+      <div class="stat-lbl">Total Children</div>
+    </div>
+    <div class="stat" style="--c:#38a169;">
+      <div class="stat-num">{{ total_vaccines }}</div>
+      <div class="stat-lbl">Vaccines Given</div>
+    </div>
+    <div class="stat" style="--c:#d69e2e;">
+      <div class="stat-num">{{ due_today }}</div>
+      <div class="stat-lbl">Due Today</div>
+    </div>
+    <div class="stat" style="--c:#e53e3e;">
+      <div class="stat-num">{{ overdue_count }}</div>
+      <div class="stat-lbl">Overdue</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-items:start;margin-bottom:1.25rem;">
+    <!-- Sub-center data -->
+    <div class="card">
+      <div class="card-title">📍 Sub-Center Wise Children</div>
+      {% if subcenter_data %}
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Sub-Center</th><th>Children</th></tr></thead>
+          <tbody>
+            {% for row in subcenter_data %}
+            <tr>
+              <td>{{ row[0] or 'Unknown' }}</td>
+              <td><span class="badge badge-blue">{{ row[1] }}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="empty"><p>No data yet</p></div>
+      {% endif %}
+    </div>
+
+    <!-- Recent vaccines -->
+    <div class="card">
+      <div class="card-title">🕒 Recent Vaccinations</div>
+      {% if recent %}
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Child</th><th>Sub-Center</th><th>Vaccine</th><th>Date</th></tr></thead>
+          <tbody>
+            {% for r in recent %}
+            <tr>
+              <td style="font-weight:500;">{{ r['name'] }}
+                <div style="font-size:.75rem;color:#a0aec0;">{{ r['child_id'] }}</div>
+              </td>
+              <td style="font-size:.82rem;color:#718096;">{{ r['subcenter'] or '—' }}</td>
+              <td><span class="badge badge-green">{{ r['vaccine_name'] }}</span></td>
+              <td style="color:#718096;font-size:.82rem;">{{ r['vacc_date'] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="empty"><p>No records yet</p></div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Monthly Report link -->
+  <div class="card" style="text-align:center;padding:1.5rem;">
+    <div style="font-size:1.5rem;margin-bottom:.5rem;">📊</div>
+    <div style="font-weight:700;margin-bottom:.5rem;">Monthly Reports</div>
+    <div style="font-size:.85rem;color:#718096;margin-bottom:1rem;">View sub-center wise detailed vaccination report</div>
+    <a href="/report" class="btn btn-blue">View Reports</a>
+  </div>
+</div>
+{% endblock %}

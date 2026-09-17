@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div style="margin-bottom:1.5rem;">
+    <h2 style="font-size:1.4rem;font-weight:700;color:#2d3748;">Hello, {{ staff_name }} 👋</h2>
+    <p style="color:#718096;font-size:.9rem;">Sub-Center: <strong style="color:#2b6cb0;">{{ subcenter }}</strong></p>
+  </div>
+
+  <!-- 5 Action Cards -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2rem;">
+
+    <a href="/child_register" style="text-decoration:none;">
+      <div class="card" style="text-align:center;border-top:4px solid #38a169;cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,.12)'" onmouseout="this.style.boxShadow=''">
+        <div style="font-size:2.2rem;margin-bottom:.5rem;">👶</div>
+        <div style="font-weight:700;color:#2d3748;font-size:.95rem;">New Child</div>
+        <div style="font-size:.78rem;color:#a0aec0;margin-top:.2rem;">Register child</div>
+      </div>
+    </a>
+
+    <a href="/update_vaccine" style="text-decoration:none;">
+      <div class="card" style="text-align:center;border-top:4px solid #3182ce;cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,.12)'" onmouseout="this.style.boxShadow=''">
+        <div style="font-size:2.2rem;margin-bottom:.5rem;">💉</div>
+        <div style="font-weight:700;color:#2d3748;font-size:.95rem;">Update Vaccine</div>
+        <div style="font-size:.78rem;color:#a0aec0;margin-top:.2rem;">Record vaccination</div>
+      </div>
+    </a>
+
+    <a href="/reminder" style="text-decoration:none;">
+      <div class="card" style="text-align:center;border-top:4px solid #d69e2e;cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,.12)'" onmouseout="this.style.boxShadow=''">
+        <div style="font-size:2.2rem;margin-bottom:.5rem;">📲</div>
+        <div style="font-weight:700;color:#2d3748;font-size:.95rem;">Reminders</div>
+        <div style="font-size:.78rem;color:#a0aec0;margin-top:.2rem;">WhatsApp alerts</div>
+      </div>
+    </a>
+
+    <a href="/search_child" style="text-decoration:none;">
+      <div class="card" style="text-align:center;border-top:4px solid #805ad5;cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,.12)'" onmouseout="this.style.boxShadow=''">
+        <div style="font-size:2.2rem;margin-bottom:.5rem;">🔍</div>
+        <div style="font-weight:700;color:#2d3748;font-size:.95rem;">Search Child</div>
+        <div style="font-size:.78rem;color:#a0aec0;margin-top:.2rem;">Find records</div>
+      </div>
+    </a>
+
+    <a href="/report" style="text-decoration:none;">
+      <div class="card" style="text-align:center;border-top:4px solid #e53e3e;cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,.12)'" onmouseout="this.style.boxShadow=''">
+        <div style="font-size:2.2rem;margin-bottom:.5rem;">📊</div>
+        <div style="font-weight:700;color:#2d3748;font-size:.95rem;">Report</div>
+        <div style="font-size:.78rem;color:#a0aec0;margin-top:.2rem;">Monthly summary</div>
+      </div>
+    </a>
+
+  </div>
+</div>
+{% endblock %}
+

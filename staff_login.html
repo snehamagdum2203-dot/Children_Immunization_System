@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Staff Login{% endblock %}
+{% block content %}
+<div class="wrap-sm">
+  <div class="card">
+    <div class="card-title">👩‍⚕️ Staff Login</div>
+    <form method="POST" action="/staff_login">
+      <div class="form-group">
+        <label>Sub-Center Name</label>
+        <input type="text" name="subcenter" placeholder="e.g. Vadgaon Sub-Center" required/>
+      </div>
+      <div class="form-group">
+        <label>Mobile Number</label>
+        <input type="text" name="mobile" placeholder="Your registered mobile number" required/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="PHC shared password" required/>
+      </div>
+      <button type="submit" class="btn btn-blue btn-full">Login →</button>
+    </form>
+    <hr/>
+    <p style="text-align:center;font-size:.85rem;color:#718096;">New staff? <a href="/staff_signup" style="color:#38a169;font-weight:600;">Sign Up here</a></p>
+  </div>
+</div>
+{% endblock %}

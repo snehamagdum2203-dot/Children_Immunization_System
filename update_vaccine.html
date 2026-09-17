@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Update Vaccine{% endblock %}
+{% block content %}
+<div class="wrap" style="max-width:640px;">
+  <div class="card">
+    <div class="card-title">💉 Update Vaccine Record</div>
+    <form method="POST" action="/update_vaccine">
+      <div class="form-group">
+        <label>Child ID <span style="color:#e53e3e;">*</span></label>
+        <input type="text" name="child_id" placeholder="e.g. CH2024001" required/>
+      </div>
+
+      <hr/>
+      <p style="font-size:.85rem;color:#718096;margin-bottom:.75rem;">Add one or more vaccines given today:</p>
+
+      <div id="vaccine-rows">
+        <div class="vaccine-row" style="background:#f7fafc;border:1px solid #e2e8f0;border-radius:8px;padding:1rem;margin-bottom:.75rem;">
+          <div class="form-group">
+            <label>Vaccine Name (Select from list)</label>
+            <select name="vaccine_name[]">
+              <option value="">— Select vaccine (optional if typing below) —</option>
+              {% for v in vaccines %}
+              <option value="{{ v['vaccine_name'] }}">{{ v['vaccine_name'] }}{% if v['age_due'] %} ({{ v['age_due'] }}){% endif %}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Other / Custom Vaccine Name <span style="color:#718096;font-weight:400;">(fill only if not in list above)</span></label>
+            <input type="text" name="other_vaccine[]" placeholder="Type vaccine name manually"/>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Date Given <span style="color:#e53e3e;">*</span></label>
+              <input type="date" name="vacc_date[]" required/>
+            </div>
+            <div class="form-group">
+              <label>Next Due Date <span style="color:#718096;font-weight:400;">(optional)</span></label>
+              <input type="date" name="due_date[]"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" onclick="addRow()" class="btn btn-gray btn-sm" style="margin-bottom:1rem;">+ Add Another Vaccine</button>
+      <hr/>
+      <div style="display:flex;gap:.75rem;">
+        <button type="submit" class="btn btn-green">Save Record →</button>
+        <a href="/staff_dashboard" class="btn btn-gray">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+const vaccineOptions = `<option value="">— Select vaccine (optional if typing below) —</option>{% for v in vaccines %}<option value="{{ v['vaccine_name'] }}">{{ v['vaccine_name'] }}{% if v['age_due'] %} ({{ v['age_due'] }}){% endif %}</option>{% endfor %}`;
+
+function addRow() {
+  const row = document.createElement('div');
+  row.className = 'vaccine-row';
+  row.style.cssText = 'background:#f7fafc;border:1px solid #e2e8f0;border-radius:8px;padding:1rem;margin-bottom:.75rem;';
+  row.innerHTML = `
+    <div class="form-group"><label>Vaccine Name (Select from list)</label>
+      <select name="vaccine_name[]"><option value="">${vaccineOptions}</select></div>
+    <div class="form-group"><label>Other / Custom Vaccine Name <span style="color:#718096;font-weight:400;">(fill only if not in list above)</span></label>
+      <input type="text" name="other_vaccine[]" placeholder="Type vaccine name manually"/></div>
+    <div class="form-row">
+      <div class="form-group"><label>Date Given <span style="color:#e53e3e;">*</span></label><input type="date" name="vacc_date[]" required/></div>
+      <div class="form-group"><label>Next Due Date <span style="color:#718096;font-weight:400;">(optional)</span></label><input type="date" name="due_date[]"/></div>
+    </div>
+    <button type="button" onclick="this.closest('.vaccine-row').remove()" class="btn btn-gray btn-sm" style="color:#e53e3e;">✕ Remove</button>`;
+  document.getElementById('vaccine-rows').appendChild(row);
+}
+</script>
+{% endblock %}
